@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { customIncrement } from '../state/counter.actions';
+import { changeName, customIncrement } from '../state/counter.actions';
 import { CounterState } from '../state/counter.state';
 
 @Component({
@@ -21,6 +21,11 @@ export class CustomCounterInputComponent implements OnInit {
 
   onAdd() {
     this.store.dispatch(customIncrement({count: +this.value}))
+  }
+
+  changeName() {
+    this.store.dispatch(changeName())
+
   }
 
 }
