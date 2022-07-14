@@ -1,5 +1,4 @@
-import {createAction, props} from '@ngrx/store';
-import { Auth } from './auth.model';
+import {createAction, props} from '@ngrx/store'; 
 
 export const LOGIN_START = '[auth page] login start'
 export const LOGIN_SUCCESS = '[auth page] login success'
