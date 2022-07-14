@@ -10,18 +10,21 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { environment } from 'src/environments/environment'; 
 import {HttpClientModule} from '@angular/common/http'
 import { AuthEffects } from './auth/state/auth.effects';
+import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loading-spinner.component';
+import { appReducer } from './store/app.state';
 
 @NgModule({
   declarations: [
     AppComponent, 
     HomeComponent,
-    HeaderComponent, 
+    HeaderComponent,
+    LoadingSpinnerComponent, 
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule, 
-    StoreModule.forRoot({}),
+    StoreModule.forRoot(appReducer),
     StoreDevtoolsModule.instrument({ 
       logOnly:environment.production
     })

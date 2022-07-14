@@ -12,7 +12,7 @@ import { CounterState } from '../state/counter.state';
 })
 export class CounterOutputComponent implements OnInit { 
   counter: number
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<CounterState>) { }
 
   ngOnInit(): void { 
     this.store.select(getCounter).subscribe(counter => {

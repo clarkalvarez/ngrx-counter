@@ -7,6 +7,7 @@ import { AppState } from 'src/app/store/app.state';
 import { updatePost } from '../state/posts.actions';
 import { Post } from '../state/posts.model';
 import { getPostById } from '../state/posts.selectors';
+import { PostsState } from '../state/posts.state';
 
 @Component({
   selector: 'app-edit-post',
@@ -18,7 +19,7 @@ export class EditPostComponent implements OnInit, OnDestroy {
   postForm: FormGroup 
   postSubscription: Subscription
 
-  constructor(private store: Store<AppState>, private route: ActivatedRoute, private router: Router) { }
+  constructor(private store: Store<PostsState>, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe(params => {

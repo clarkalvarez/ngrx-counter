@@ -15,7 +15,7 @@ export class CustomCounterInputComponent implements OnInit {
   value: number;
   name$: Observable<string>;
   // name: string; if using subscribe without async in html
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<CounterState>) { }
 
   ngOnInit(): void {
     this.name$ =  this.store.select(getName)

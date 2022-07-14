@@ -14,7 +14,7 @@ export class CounterButtonsComponent implements OnInit {
   @Output() decrement = new EventEmitter<void>();
   @Output() reset = new EventEmitter<void>();
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<CounterState>) { }
 
   ngOnInit(): void {
   }
