@@ -10,3 +10,7 @@ export const getPosts = createSelector(getPostsState, state => {
 export const getPostById = createSelector(getPostsState, (state: any, props: any) => {
     return state.posts.find((post: any) => post.id === props.id)
 }) 
+
+export const deletePost = createSelector(getPostsState, (state: any, props: any) => {
+    return state.posts.find((post: any) => post.id === props.id)
+}) 
