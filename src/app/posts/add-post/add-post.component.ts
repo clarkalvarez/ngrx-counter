@@ -12,6 +12,7 @@ import { Post } from '../state/posts.model';
 })
 export class AddPostComponent implements OnInit {
   postForm: FormGroup
+
   constructor(private store: Store<AppState>) { }
 
   ngOnInit(): void {
@@ -44,8 +45,6 @@ export class AddPostComponent implements OnInit {
         return 'Description should be minimum of 10 characters'
       }
     }
-
     return
   }
-
 }
