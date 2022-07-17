@@ -1,16 +1,19 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
+import { Store } from "@ngrx/store";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
+import { autoLogout } from "../auth/state/auth.actions";
 import { AuthResponseData } from "../auth/state/model/authResponseData.model";
 import { User } from "../auth/state/model/user.model";
+import { AppState } from "../store/app.state";
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthService {
     timeoutInterval: any;
-    constructor(private http: HttpClient) { }
+    constructor(private http: HttpClient, private store: Store<AppState>) { }
 
     login(email: string, password: string): Observable<AuthResponseData> { 
         return this.http.post<AuthResponseData>(`https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=${environment.FIREBASE_API_KEY}`, {email, password, returnSecureToken: true})
@@ -51,7 +54,7 @@ export class AuthService {
         const timeInterval = expirationDate - todaysDate
 
         this.timeoutInterval =  setTimeout(() => {
-            
+            this.store.dispatch(autoLogout())
         }, timeInterval);
     }
 
@@ -64,6 +67,14 @@ export class AuthService {
             this.runTimeoutInterval(user)
             return user
         }
-        return null
+        return null as any
+    }
+
+    logout() {
+        localStorage.removeItem('userData')
+        if(this.timeoutInterval) {
+            clearTimeout(this.timeoutInterval)
+            this.timeoutInterval = null
+        }
     }
 } 
