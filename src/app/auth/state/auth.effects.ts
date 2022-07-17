@@ -2,11 +2,11 @@ import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { Store } from "@ngrx/store";
-import { catchError, exhaustMap, map, of, Subject, tap } from "rxjs";
+import { catchError, exhaustMap, map, mergeMap, of, Subject, tap } from "rxjs";
 import { AuthService } from "src/app/services/auth.service";
 import { AppState } from "src/app/store/app.state";
 import { setErrorMessage, setLoadingSpinner } from "src/app/store/Shared/shared.actions";
-import { loginStart, loginSuccess, signupStart, signupSuccess } from "./auth.actions";
+import { autoLogin, loginStart, loginSuccess, signupStart, signupSuccess } from "./auth.actions";
 
 @Injectable()
 export class AuthEffects {
@@ -20,6 +20,7 @@ export class AuthEffects {
                     this.store.dispatch(setLoadingSpinner({status: false})) 
                     this.store.dispatch(setErrorMessage({errorMessage: ''}))
                     const user = this.authService.formatUser(data)
+                    this.authService.setUserInLocalStorage(user)
                     return loginSuccess({user})
                 }),
                 catchError(err => {
@@ -59,4 +60,13 @@ export class AuthEffects {
             )
         }))
     }); 
+
+    autoLogin$ = createEffect(() => {
+        return this.actions$.pipe(
+        ofType(autoLogin),
+        map(() => { 
+            const user = this.authService.getUserInLocalStorage()
+            console.log(user)
+        }))
+    }, {dispatch: false}); 
 }

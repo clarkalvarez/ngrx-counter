@@ -24,6 +24,7 @@ import { appReducer } from './store/app.state';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule, 
+    EffectsModule.forRoot([AuthEffects]),
     StoreModule.forRoot(appReducer),
     StoreDevtoolsModule.instrument({ 
       logOnly:environment.production
