@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './signup/signup.component';
+
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { AUTH_STATE_NAME } from './state/auth.selectors';
@@ -15,12 +17,13 @@ const routes: Routes = [
     children: [
       {path: '', redirectTo: 'login',  pathMatch: "full"},
       {path: 'login', component: LoginComponent},
+      {path: 'signup', component: SignupComponent},
     ]
   }
 ] 
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, SignupComponent],
   imports: [
     CommonModule,
     FormsModule,
