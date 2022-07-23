@@ -33,4 +33,15 @@ export class PostService {
         return this.http
         .post<{name: string}>(`https://ngrx-application-85782-default-rtdb.asia-southeast1.firebasedatabase.app/ngrxposts.json`, post)
     }
+
+    updatePost(post: Post)  {
+        const postData = {[post.id]: {title: post.title, description: post.description}}
+        return this.http
+        .patch(`https://ngrx-application-85782-default-rtdb.asia-southeast1.firebasedatabase.app/ngrxposts.json`, postData)
+    }
+
+    deletePost(id: string) { 
+        return this.http
+        .delete(`https://ngrx-application-85782-default-rtdb.asia-southeast1.firebasedatabase.app/ngrxposts/${id}.json`)
+    }
 } 
