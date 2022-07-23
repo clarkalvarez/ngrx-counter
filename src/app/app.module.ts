@@ -14,6 +14,7 @@ import { LoadingSpinnerComponent } from './shared/components/loading-spinner/loa
 import { appReducer } from './store/app.state';
 import { AuthTokenInterceptor } from './services/AuthToken.interceptor';
 import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { CustomSerializer } from './router/custom-serializer';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,7 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
     StoreDevtoolsModule.instrument({ 
       logOnly:environment.production
     }),
-    StoreRouterConnectingModule.forRoot()
+    StoreRouterConnectingModule.forRoot({serializer: CustomSerializer})
   ],
   providers: [{provide: HTTP_INTERCEPTORS, useClass: AuthTokenInterceptor, multi: true}],
   bootstrap: [AppComponent]
