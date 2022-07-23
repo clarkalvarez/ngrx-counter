@@ -28,4 +28,9 @@ export class PostService {
             })
         )
     }
+
+    addPosts(post: Post): Observable<{name: string}>  {
+        return this.http
+        .post<{name: string}>(`https://ngrx-application-85782-default-rtdb.asia-southeast1.firebasedatabase.app/ngrxposts.json`, post)
+    }
 } 

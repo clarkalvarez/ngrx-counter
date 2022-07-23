@@ -6,7 +6,7 @@ import { catchError, exhaustMap, map, mergeMap, of, Subject, switchMap, tap } fr
 import { PostService } from "src/app/services/post.service";
 import { AppState } from "src/app/store/app.state";
 import { setErrorMessage, setLoadingSpinner } from "src/app/store/Shared/shared.actions";
-import { loadPosts, loadPostsSuccess } from "./posts.actions";
+import { addPost, addPostSuccess, loadPosts, loadPostsSuccess } from "./posts.actions";
 import { Post } from './posts.model';
 
 @Injectable()
@@ -21,6 +21,21 @@ export class PostEffects {
                 return this.postService.getPosts().pipe(
                     map((posts) => {
                         return loadPostsSuccess({posts})
+                    })
+                );
+            })
+        )
+    })
+
+    addPost$ = createEffect(
+        () => {
+        return this.actions$.pipe(
+            ofType(addPost), 
+            mergeMap((action) => {
+                return this.postService.addPosts(action.post).pipe(
+                    map((data) => {
+                        const post = {...action.post, id: data.name}
+                        return addPostSuccess({post})
                     })
                 );
             })
