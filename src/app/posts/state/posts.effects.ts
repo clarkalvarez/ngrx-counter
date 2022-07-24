@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
+import { Router, ROUTER_INITIALIZER } from "@angular/router";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
+import { RouterNavigatedAction, routerNavigationAction, ROUTER_NAVIGATED, ROUTER_NAVIGATION } from "@ngrx/router-store";
 import { Store } from "@ngrx/store";
-import { catchError, exhaustMap, map, mergeMap, of, Subject, switchMap, tap } from "rxjs";
+import { catchError, exhaustMap, filter, map, mergeMap, of, Subject, switchMap, tap } from "rxjs";
 import { PostService } from "src/app/services/post.service";
 import { AppState } from "src/app/store/app.state";
 import { setErrorMessage, setLoadingSpinner } from "src/app/store/Shared/shared.actions";
@@ -66,6 +67,24 @@ export class PostEffects {
                         return deletePostSuccess({id: action.id})
                     })
                 );
+            })
+        )
+    })
+
+    getSinglePost$ = createEffect(
+        () => {
+        return this.actions$.pipe(
+            ofType(ROUTER_NAVIGATION), 
+            map((r: any) => {
+                return r.payload.routerState['params']['id']
+            }),
+            switchMap((id) => { 
+                return this.postService.getPostById(id).pipe(
+                    map((post) => {
+                        const postData = [{ ...post, id}]
+                        return loadPostsSuccess({posts: postData})
+                    })
+                )
             })
         )
     })

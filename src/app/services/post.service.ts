@@ -44,4 +44,9 @@ export class PostService {
         return this.http
         .delete(`https://ngrx-application-85782-default-rtdb.asia-southeast1.firebasedatabase.app/ngrxposts/${id}.json`)
     }
+
+    getPostById(id: string): Observable<Post> {  
+        return this.http
+        .get<Post>(`https://ngrx-application-85782-default-rtdb.asia-southeast1.firebasedatabase.app/ngrxposts/${id}.json`)
+    }
 } 
