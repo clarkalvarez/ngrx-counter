@@ -18,3 +18,4 @@ export const getPostById = createSelector(getPostsState, getCurrentRoute, (state
 export const deletePost = createSelector(getPostsState, (state: any, props: any) => {
     return state.posts.find((post: any) => post.id === props.id)
 }) 
+ 
